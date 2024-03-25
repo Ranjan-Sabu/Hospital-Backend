@@ -57,18 +57,16 @@ class User(AbstractBaseUser):
     
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property
     def is_staff(self):
         "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
         return self.is_admin
     
 
 class Doctors(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='doctors')
+    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='doctors')
     department = models.CharField(max_length=155,null=True,blank=True)
     hospital = models.CharField(max_length=155,null=True,blank=True)
 
